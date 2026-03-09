@@ -59,6 +59,22 @@ changelog:
       - Merge pull request
       - Merge branch
 
+brews:
+  - name: appwrite-cli
+    repository:
+      owner: AndroidPoet
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/AndroidPoet/appwrite-cli
+    description: "Fast, single-binary CLI for Appwrite — multi-profile, multi-format, multi-environment"
+    license: MIT
+    install: |
+      bin.install "appwrite-cli"
+      bin.install_symlink "appwrite-cli" => "aw"
+    test: |
+      system "#{bin}/aw", "version"
+
 nfpms:
   - id: packages
     package_name: appwrite-cli
