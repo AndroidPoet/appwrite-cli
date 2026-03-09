@@ -1,0 +1,100 @@
+# GoReleaser configuration for appwrite-cli
+# https://goreleaser.com
+
+version: 2
+
+project_name: appwrite-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: appwrite-cli
+    main: ./cmd/appwrite-cli
+    binary: appwrite-cli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+archives:
+  - id: default
+    format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- .Arch }}
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+
+brews:
+  - name: appwrite-cli
+    repository:
+      owner: AndroidPoet
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/AndroidPoet/appwrite-cli
+    description: "Fast, single-binary CLI for Appwrite — multi-profile, multi-format, multi-environment"
+    license: MIT
+    install: |
+      bin.install "appwrite-cli"
+      bin.install_symlink "appwrite-cli" => "aw"
+    test: |
+      system "#{bin}/aw", "version"
+
+nfpms:
+  - id: packages
+    package_name: appwrite-cli
+    vendor: AndroidPoet
+    homepage: https://github.com/AndroidPoet/appwrite-cli
+    description: "Fast, single-binary CLI for Appwrite — multi-profile, multi-format, multi-environment"
+    license: MIT
+    formats:
+      - deb
+      - rpm
+
+release:
+  github:
+    owner: AndroidPoet
+    name: appwrite-cli
+  draft: false
+  prerelease: auto
+  footer: |
+    ## Installation
+    ```bash
+    brew tap AndroidPoet/tap && brew install appwrite-cli
+    ```
+    Or download from the assets below.
