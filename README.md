@@ -2,7 +2,10 @@
 
 <br>
 
-# appwrite-cli
+<img src="assets/logo.png" alt="appwrite-cli" width="420">
+
+<br>
+<br>
 
 **A fast, single-binary CLI for Appwrite — built for power users and CI/CD.**
 
