@@ -1,6 +1,11 @@
 <div align="center">
 
-<img src="art/logo.svg" width="800" alt="Appwrite CLI">
+<br>
+
+<img src="assets/logo.png" alt="appwrite-cli" width="420">
+
+<br>
+<br>
 
 **A fast, single-binary CLI for Appwrite — built for power users and CI/CD.**
 
