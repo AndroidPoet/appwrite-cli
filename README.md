@@ -428,6 +428,10 @@ make test      # Run tests
 make lint      # Run linter
 ```
 
+## Find this repository useful? :heart:
+Support it by joining __[stargazers](https://github.com/androidpoet/appwrite-cli/stargazers)__ for this repository. :star: <br>
+Also, __[follow me](https://github.com/androidpoet)__ on GitHub for my next creations! 🤩
+
 ## License
 
 MIT
